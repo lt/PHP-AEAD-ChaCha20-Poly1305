@@ -1,0 +1,34 @@
+{
+  "name": "leigh/aead-chacha20-poly1305",
+  "homepage": "https://github.com/lt/PHP-AEAD-ChaCha20-Poly1305",
+  "description": "RFC 7539 ChaCha20/Poly1305 AEAD construction",
+  "authors": [
+    {
+      "name": "Leigh T",
+      "homepage": "https://github.com/lt"
+    }
+  ],
+  "keywords": [
+    "aead",
+    "authentication",
+    "authenticated",
+    "encryption",
+    "cipher",
+    "mac",
+    "security"
+  ],
+  "license": "MIT",
+  "require": {
+    "php": ">=5.4",
+    "leigh/poly1305": "^0.1.0",
+    "leigh/chacha20": "^0.1.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~5.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "AEAD\\": "lib"
+    }
+  }
+}
