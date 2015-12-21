@@ -94,7 +94,7 @@ class Cipher
 
         if ($tag) {
             if (!hash_equals($mac, $tag)) {
-                throw new \Exception('Calculated tag does not match supplied tag');
+                throw new AuthenticationException('Calculated tag does not match supplied tag');
             }
         }
 
