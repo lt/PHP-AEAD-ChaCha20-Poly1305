@@ -28,7 +28,7 @@
   },
   "autoload": {
     "psr-4": {
-      "AEAD\\": "lib"
+      "ChaCha20Poly1305\\": "lib"
     }
   }
 }
