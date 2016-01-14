@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace ChaCha20Poly1305;
 
@@ -13,7 +13,7 @@ class Cipher
         $this->poly1305 = new \Poly1305\Authenticator();
     }
 
-    function init($key, $nonce)
+    function init(string $key, string $nonce): Context
     {
         $ctx = new Context();
         $ctx->cipherCtx = $this->chacha20->init($key, $nonce);
@@ -26,7 +26,7 @@ class Cipher
         return $ctx;
     }
 
-    function aad(Context $ctx, $aad)
+    function aad(Context $ctx, string $aad)
     {
         if ($ctx->cipherLen) {
             throw new \LogicException('Authenticated data not allowed after encrypt/decrypt operations.');
@@ -36,12 +36,12 @@ class Cipher
         $ctx->aadLen += strlen($aad);
     }
 
-    private function pad16($len)
+    private function pad16(int $len): string
     {
         return str_repeat("\0", 16 - ($len % 16));
     }
 
-    function encrypt(Context $ctx, $plaintext)
+    function encrypt(Context $ctx, string $plaintext): string
     {
         if (!$ctx->cipherLen) {
             $this->poly1305->update($ctx->authCtx, $this->pad16($ctx->aadLen));
@@ -55,7 +55,7 @@ class Cipher
         return $ciphertext;
     }
 
-    function decrypt(Context $ctx, $ciphertext)
+    function decrypt(Context $ctx, string $ciphertext): string
     {
         if (!$ctx->cipherLen) {
             $this->poly1305->update($ctx->authCtx, $this->pad16($ctx->aadLen));
@@ -69,7 +69,7 @@ class Cipher
         return $plaintext;
     }
 
-    function verify(Context $ctx, $ciphertext)
+    function verify(Context $ctx, string $ciphertext)
     {
         if (!$ctx->cipherLen) {
             $this->poly1305->update($ctx->authCtx, $this->pad16($ctx->aadLen));
@@ -80,7 +80,7 @@ class Cipher
         $ctx->cipherLen += strlen($ciphertext);
     }
 
-    function finish(Context $ctx, $tag = '')
+    function finish(Context $ctx, string $tag = ''): string
     {
         $cipherLen = $ctx->cipherLen;
         $this->poly1305->update($ctx->authCtx, $this->pad16($cipherLen));

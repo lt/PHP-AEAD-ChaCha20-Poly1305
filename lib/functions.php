@@ -1,8 +1,8 @@
-<?php
+<?php declare(strict_types = 1);
 
 namespace ChaCha20Poly1305;
 
-function encrypt($key, $nonce, $aad, $plaintext)
+function encrypt(string $key, string $nonce, string $aad, string $plaintext): string
 {
     $cipher = new Cipher();
     $context = $cipher->init($key, $nonce);
@@ -12,7 +12,7 @@ function encrypt($key, $nonce, $aad, $plaintext)
     return [$ciphertext, $tag];
 }
 
-function decrypt($key, $nonce, $aad, $ciphertext, $tag)
+function decrypt(string $key, string $nonce, string $aad, string $ciphertext, string $tag): string
 {
     $cipher = new Cipher();
     $context = $cipher->init($key, $nonce);
@@ -22,7 +22,7 @@ function decrypt($key, $nonce, $aad, $ciphertext, $tag)
     return $plaintext;
 }
 
-function verify($key, $nonce, $aad, $ciphertext, $tag)
+function verify(string $key, string $nonce, string $aad, string $ciphertext, string $tag): bool
 {
     $cipher = new Cipher();
     $context = $cipher->init($key, $nonce);

@@ -4,7 +4,7 @@
   "description": "RFC 7539 ChaCha20/Poly1305 AEAD construction",
   "authors": [
     {
-      "name": "Leigh T",
+      "name": "Leigh",
       "homepage": "https://github.com/lt"
     }
   ],
@@ -19,9 +19,9 @@
   ],
   "license": "MIT",
   "require": {
-    "php": ">=5.4",
-    "leigh/poly1305": "^0.1.0",
-    "leigh/chacha20": "^0.1.1"
+    "php": ">=7.0",
+    "leigh/poly1305": "^0.2.0",
+    "leigh/chacha20": "^0.2.0"
   },
   "require-dev": {
     "phpunit/phpunit": "~5.0"
