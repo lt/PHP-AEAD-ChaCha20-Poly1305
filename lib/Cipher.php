@@ -85,9 +85,8 @@ class Cipher
         $cipherLen = $ctx->cipherLen;
         $this->poly1305->update($ctx->authCtx, $this->pad16($cipherLen));
 
-        // Pack code P only available in 5.6.3 or greater.
-        $packedAadLen = pack('VV', $ctx->aadLen, $ctx->aadLen >> 32);
-        $packedCipherLen = pack('VV', $cipherLen, $cipherLen >> 32);
+        $packedAadLen = pack('P', $ctx->aadLen);
+        $packedCipherLen = pack('P', $cipherLen);
 
         $this->poly1305->update($ctx->authCtx, $this->pad16($cipherLen) . $packedAadLen . $packedCipherLen);
         $mac = $this->poly1305->finish($ctx->authCtx);
