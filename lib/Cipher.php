@@ -38,7 +38,8 @@ class Cipher
 
     private function pad16(int $len): string
     {
-        return str_repeat("\0", 16 - ($len % 16));
+        $pad = $len % 16;
+        return str_repeat("\0", $pad > 0 ? 16 - $pad : 0);
     }
 
     function encrypt(Context $ctx, string $plaintext): string
@@ -89,7 +90,7 @@ class Cipher
         $packedAadLen = pack('VV', $ctx->aadLen, $ctx->aadLen >> 32);
         $packedCipherLen = pack('VV', $cipherLen, $cipherLen >> 32);
 
-        $this->poly1305->update($ctx->authCtx, $this->pad16($cipherLen) . $packedAadLen . $packedCipherLen);
+        $this->poly1305->update($ctx->authCtx, $packedAadLen . $packedCipherLen);
         $mac = $this->poly1305->finish($ctx->authCtx);
 
         if ($tag) {
