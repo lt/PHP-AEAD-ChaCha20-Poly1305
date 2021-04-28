@@ -2,7 +2,7 @@
 
 namespace ChaCha20Poly1305;
 
-function encrypt(string $key, string $nonce, string $aad, string $plaintext): string
+function encrypt(string $key, string $nonce, string $aad, string $plaintext): array
 {
     $cipher = new Cipher();
     $context = $cipher->init($key, $nonce);
